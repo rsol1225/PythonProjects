@@ -1,0 +1,59 @@
+# file: shop.py implements a vending machine
+# input: strings and numbers (integers)
+# output: interactive messages (strings)print("Vending Machine")
+print("Vending Machine")
+while True:
+    user_choice = input("Please enter what product you want to buy[1-3] or select quit[4]:\n" + "1. A bottle of water - $1.99\n"
++ "2. A bottle of orange juice - $2.15\n" + "3. A bottle of ice tea - $2.49\n" + "4. Quit\n")
+    if user_choice == "1" or user_choice == "2" or user_choice == "3":
+        # step 2: depending on the user's choice,
+        # update product_price and product_name (the variables that keep track of the user's choice),
+        if user_choice == "1":
+            product_name = "a bottle of water"
+            product_price = 1.99
+        elif user_choice == "2":
+            product_name = "a bottle of orange juice"
+            product_price = 2.15
+        elif user_choice == "3":
+            product_price = 2.49
+            product_name = "a bottle of ice tea"
+
+        # Here, I'm converting product price into cents, so I can if the user needs to input more cents
+        deposited_money = int(input("Please deposit money (in cents): \n"))
+        product_price_in_cents = int(product_price*100)
+        change = deposited_money - product_price_in_cents
+        while change < 0:
+            deposited_money2 = int(input(("Please deposit money (in cents): \n")))
+            deposited_money = deposited_money + deposited_money2
+            change = deposited_money - product_price_in_cents
+
+        # Step #4: calculate change, we use the greedy algorithm written below to get the minimum number of coins:
+        dollars = change // 100
+        change = change % 100
+        quarters = change // 25
+        change = change % 25
+        dimes = change // 10
+        change = change % 10
+        nickels = change // 5
+        change = change % 5
+        cents = change
+        print("You bought " + f"{product_name}.")
+
+        if dollars > 0 or quarters > 0 or dimes > 0 or nickels > 0 or cents > 0:
+            print("Your change is:")
+            if dollars != 0:
+                print(f"Dollars - {int(dollars)}")
+            if quarters != 0:
+                print(f"Quarters - {int(quarters)}")
+            if dimes != 0:
+                print(f"Dimes - {int(dimes)}")
+            if nickels != 0:
+                print(f"Nickels - {int(nickels)}")
+            if cents != 0:
+                print(f"Cents - {int(cents)}")
+    elif user_choice == "4":
+        print("Goodbye!")
+        break
+    else:
+        print("You made a wrong choice!")
+
