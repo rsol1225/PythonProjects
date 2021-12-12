@@ -1,0 +1,148 @@
+# file: calculator.py is a program that is similar to a simple calculator that can add, subtract, divide, or divide two numbers.
+# input: strings and numbers
+# output: interactive messages (strings)
+
+def isfloat(token):
+    if token == '':
+        return False
+    dot = False
+    minus = False
+    for char in token:
+        if char.isdigit():  # allow many digits in a string
+            continue
+        elif char == ".":  # allow only one dot in a string
+            if not dot:
+                dot = True
+            else:
+                return False
+        elif char == "-" and token[0] == "-":  # allow one minus in front
+            if not minus:
+                minus = True
+            else:
+                return False
+        else:  # do not allow any other characters in a string
+            return False
+    return True
+
+
+def enter_digits(number):
+    if(number == "1"):
+        input_num = input("Please enter the first number: \n")
+        if isfloat(input_num) == False:
+            end = False
+            while isfloat(input_num) == False and end == False:
+                print("You did not choose a number.")
+                num1 = input("Please enter the first number: \n")
+                if isfloat(num1) == True:
+                    input_num = num1
+                    end = True
+    if (number == "2"):
+        input_num = input("Please enter the second number: \n")
+        if isfloat(input_num) == False:
+            end = False
+            while isfloat(input_num) == False and end == False:
+                print("You did not choose a number.")
+                num2 = input("Please enter the second number: \n")
+                if isfloat(num2) == True:
+                    input_num = num2
+                    end = True
+    return input_num
+
+
+def format_method(num):
+    if(num.is_integer() == True):
+        num = round(int(num))
+    else:
+        num = round(num, 2)
+    return num
+
+
+def add(num1, num2):
+    num1 = float(num1)
+    num2 = float(num2)
+    sum = num1 + num2
+    sum = format_method(sum)
+    return str(sum)
+
+
+def subtract(num1, num2):
+    num1 = float(num1)
+    num2 = float(num2)
+    difference = num1 - num2
+    difference = format_method(difference)
+    return str(difference)
+
+
+def multiply(num1, num2):
+    num1 = float(num1)
+    num2 = float(num2)
+    product = num1 * num2
+    product = format_method(product)
+    return str(product)
+
+
+def divide(num1, num2):
+    num1 = float(num1)
+    num2 = float(num2)
+    quotient = num1/num2
+    quotient = format_method(quotient)
+    return str(quotient)
+
+print("Welcome to Calculator Program!")
+done = True
+while done:
+    user_choice = (input("Please choose one of the following operations:\n" + "Addition - A\n" + "Subtraction - S\n" + "Multiplication - M\n" + "Division - D\n" + ">\n")).upper()
+    if (user_choice == "A"):
+        print("You chose addition.")
+        num1 = float(enter_digits("1"))
+        num1 = format_method(num1)
+        print(f"The first number is {num1}.")
+        num2 = float(enter_digits("2"))
+        num2 = format_method(num2)
+        print(f"The second number is {num2}.")
+        sum = add(num1, num2)
+        print(f"{num1} + {num2} = {sum}")
+    elif (user_choice == "S"):
+        print("You chose subtraction.")
+        num1 = float(enter_digits("1"))
+        num1 = format_method(num1)
+        print(f"The first number is {num1}.")
+        num2 = float(enter_digits("2"))
+        num2 = format_method(num2)
+        print(f"The second number is {num2}.")
+        difference = subtract(num1, num2)
+        print(f"{num1} - {num2} = {difference}")
+    elif (user_choice == "M"):
+        print("You chose multiplication.")
+        num1 = float(enter_digits("1"))
+        num1 = format_method(num1)
+        print(f"The first number is {num1}.")
+        num2 = float(enter_digits("2"))
+        num2 = format_method(num2)
+        print(f"The second number is {num2}.")
+        product = multiply(num1, num2)
+        print(f"{num1} x {num2} = {product}")
+    elif (user_choice == "D"):
+        print("You chose division.")
+        num1 = float(enter_digits("1"))
+        num1 = format_method(num1)
+        print(f"The first number is {num1}.")
+        num2 = float(enter_digits("2"))
+        num2 = format_method(num2)
+        print(f"The second number is {num2}.")
+        if not num2:
+            print("The division by zero is prohibited!")
+        else:
+            quotient = divide(num1, num2)
+            print(f"{num1} / {num2} = {quotient}")
+    else:
+        continue_calc = input("Do you want to continue? [Y/N]:\n").upper()
+        if(continue_calc == "N"):
+            print("Goodbye!")
+            done = False
+    if(user_choice == "A" or user_choice == "S" or user_choice == "M" or user_choice == "D"):
+        continue_calc = input("Do you want to continue? [Y/N]:\n").upper()
+        if (continue_calc == "N"):
+            print("Goodbye!")
+            done = False
+
